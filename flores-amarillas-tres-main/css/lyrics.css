@@ -1,0 +1,640 @@
+/* Letra sobre las flores: este archivo no modifica la animación existente. */
+#lyrics {
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  bottom: 100px;
+  width: min(80%, 900px);
+  transform: translateX(-50%);
+  color: #fff;
+  font: 700 clamp(1.25rem, 4vw, 2rem) / 1.35 Arial, sans-serif;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-shadow: 2px 2px 7px #000;
+  opacity: 0;
+}
+
+#lyrics.mostrar {
+  animation: letra-aparece 700ms ease-out forwards;
+}
+
+@keyframes letra-aparece {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+#audio {
+  display: none;
+}
+
+/* Carta-regalo en la esquina inferior izquierda. */
+.carta-regalo {
+  position: fixed;
+  z-index: 10001;
+  bottom: 24px;
+  left: 24px;
+  width: 136px;
+  height: 92px;
+  padding: 39px 8px 8px;
+  border: 0;
+  border-radius: 6px;
+  color: #4e2718;
+  background: linear-gradient(135deg, #fff1ce, #e6bd77);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.55), inset 0 0 0 2px #fff8df;
+  cursor: pointer;
+  font: 700 0.78rem/1 Georgia, serif;
+  text-align: center;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.carta-regalo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top: 46px solid #f8d99d;
+  border-right: 68px solid transparent;
+  border-left: 68px solid transparent;
+}
+
+.carta-regalo:hover {
+  filter: brightness(1.12);
+  transform: translateY(-5px) rotate(-2deg);
+}
+
+.carta-regalo__texto { position: relative; z-index: 1; }
+
+.sello-corazon {
+  position: absolute;
+  z-index: 2;
+  top: 27px;
+  left: 50%;
+  display: grid;
+  width: 33px;
+  height: 33px;
+  place-items: center;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  color: #ffe4c1;
+  background: #a71925;
+  box-shadow: 0 2px 5px #5b1016;
+  font: 1.3rem/1 Arial, sans-serif;
+}
+
+.carta-abierta {
+  position: relative;
+  width: min(84vw, 430px);
+  padding: 48px 38px 34px;
+  border: 5px solid #9c612f;
+  border-radius: 10px;
+  color: #4d2d1b;
+  background: #fff3d9;
+  box-shadow: 0 18px 70px #000;
+  font-family: Georgia, serif;
+  text-align: center;
+  overflow: hidden;
+}
+
+.carta-abierta::backdrop { background: rgba(0, 0, 0, 0.68); }
+.carta-abierta p { margin: 0 0 20px; color: #a71925; font-size: 2rem; }
+.carta-mensaje { font-size: 1.1rem; line-height: 1.6; }
+.carta-firma { display: block; margin-top: 25px; color: #a71925; font-style: italic; }
+
+.carta-abierta p,
+.carta-mensaje,
+.carta-firma {
+  position: relative;
+  z-index: 1;
+}
+
+.corazones-carta {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.corazon-carta {
+  position: absolute;
+  bottom: -28px;
+  left: var(--posicion);
+  color: #e72252;
+  font-size: var(--tamano);
+  line-height: 1;
+  opacity: 0;
+  text-shadow: 0 0 8px rgba(255, 69, 113, .7);
+  animation: subir-corazon 2.8s ease-out var(--retraso) forwards;
+}
+
+@keyframes subir-corazon {
+  0% { opacity: 0; transform: translateX(0) translateY(0) scale(.65) rotate(0deg); }
+  16% { opacity: .8; }
+  100% { opacity: 0; transform: translateX(var(--desvio)) translateY(-360px) scale(1.3) rotate(28deg); }
+}
+
+.carta-cerrar {
+  position: absolute;
+  top: 10px;
+  right: 13px;
+  border: 0;
+  color: #6a3920;
+  background: transparent;
+  cursor: pointer;
+  font-size: 2rem;
+  line-height: 1;
+  z-index: 2;
+}
+
+/* Marco negro sutil para dar profundidad a la escena nocturna. */
+.marco-nocturno {
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  border: 5px solid rgba(0, 0, 0, 0.72);
+  box-shadow: inset 0 0 70px 22px rgba(0, 0, 0, 0.9);
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.38) 100%);
+}
+
+/* Sol azul con destellos en la esquina superior derecha. */
+.sol-azul {
+  position: fixed;
+  z-index: 9;
+  top: clamp(-72px, -5vw, -38px);
+  right: clamp(-72px, -5vw, -38px);
+  width: clamp(125px, 15vw, 200px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 32%, #e5ffff 0 5%, #78eaff 18%, #1688e8 52%, #063b91 100%);
+  box-shadow: 0 0 15px #8ff6ff, 0 0 35px #32b7ff, 0 0 70px #126be5;
+  animation: pulso-sol-azul 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulso-sol-azul {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.12); filter: brightness(1.28); }
+}
+
+/* Estrellas que cruzan el cielo detrás de las flores. */
+.estrellas-fugaces {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.estrellas-fugaces span {
+  position: absolute;
+  top: -8vh;
+  left: var(--left);
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 0 8px 2px #d5f8ff;
+  opacity: 0;
+  animation: lluvia-de-estrellas 3.8s linear infinite;
+  animation-delay: var(--delay);
+}
+
+.estrellas-fugaces span:nth-child(4n + 2) { top: 8vh; }
+.estrellas-fugaces span:nth-child(4n + 3) { top: 22vh; }
+.estrellas-fugaces span:nth-child(4n + 4) { top: 38vh; }
+
+.estrellas-fugaces span::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  width: 110px;
+  height: 2px;
+  transform: rotate(35deg);
+  transform-origin: right center;
+  background: linear-gradient(90deg, transparent, #bcefff, #fff);
+}
+
+@keyframes lluvia-de-estrellas {
+  0%, 4% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.4);
+  }
+
+  7% { opacity: 1; }
+
+  44% {
+    opacity: 0;
+    transform: translate(-360px, 260px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-360px, 260px) scale(1);
+  }
+}
+
+/* Fotos decorativas que rodean las flores sin bloquear la animación. */
+.decoraciones {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.decoracion {
+  position: absolute;
+  width: clamp(110px, 15vw, 215px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  animation: flotar-foto 5s ease-in-out infinite;
+}
+
+.decoracion::before {
+  content: "";
+  position: absolute;
+  inset: -7%;
+  z-index: 0;
+  background: #ffe600;
+  clip-path: polygon(
+    50% 100%, 8% 62%, 0 43%, 3% 24%, 15% 10%, 31% 8%,
+    50% 22%, 69% 8%, 85% 10%, 97% 24%, 100% 43%, 92% 62%
+  );
+  filter: blur(10px) drop-shadow(0 0 10px #fff700) drop-shadow(0 0 18px #ffae00);
+  opacity: .9;
+  animation: brillo-corazon 1.6s ease-in-out infinite alternate;
+}
+
+.foto-tarjeta {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  perspective: 700px;
+  pointer-events: auto;
+}
+
+.foto-tarjeta:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 5px;
+  border-radius: 50%;
+}
+
+.foto-tarjeta__interior {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 700ms cubic-bezier(.2, .72, .25, 1);
+  transform-style: preserve-3d;
+}
+
+.foto-tarjeta.esta-volteada .foto-tarjeta__interior {
+  transform: rotateY(180deg);
+}
+
+.flor-foto {
+  position: absolute;
+  z-index: 3;
+  bottom: 8%;
+  left: var(--posicion);
+  font-size: var(--tamano);
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 0 4px rgba(255, 238, 83, .9));
+  animation: aparecer-flor-foto 2.35s ease-out var(--retraso) forwards;
+}
+
+@keyframes aparecer-flor-foto {
+  0% { opacity: 0; transform: translate(0, 0) scale(.35) rotate(0deg); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--desvio), -115px) scale(1.18) rotate(140deg); }
+}
+
+.foto-tarjeta__cara {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  clip-path: polygon(
+    50% 100%, 8% 62%, 0 43%, 3% 24%, 15% 10%, 31% 8%,
+    50% 22%, 69% 8%, 85% 10%, 97% 24%, 100% 43%, 92% 62%
+  );
+}
+
+.foto-tarjeta__cara--frente img {
+  width: 96%;
+  height: 96%;
+  object-fit: cover;
+}
+
+.foto-tarjeta__cara--frente {
+  background: #ffe600;
+}
+
+.foto-tarjeta__cara--reverso {
+  box-sizing: border-box;
+  padding: 16% 14%;
+  color: #6b2400;
+  background: radial-gradient(circle at 50% 35%, #fff9b8, #ffd54a 62%, #e69a00);
+  font: 700 clamp(.68rem, 1.35vw, 1rem)/1.25 Georgia, serif;
+  text-align: center;
+  text-shadow: 0 1px rgba(255, 255, 255, .65);
+  transform: rotateY(180deg);
+}
+
+.decoracion--1 { top: 12%; left: 7%; animation-delay: -1s; }
+.decoracion--2 { top: 23%; right: 8%; animation-delay: -3s; }
+.decoracion--3 { top: 52%; left: 5%; width: clamp(90px, 12vw, 170px); animation-delay: -2s; }
+.decoracion--4 { top: 54%; right: 6%; width: clamp(90px, 12vw, 170px); animation-delay: -4s; }
+.decoracion--5 { bottom: 13%; left: 16%; width: clamp(84px, 11vw, 155px); animation-delay: -2.5s; }
+.decoracion--6 { bottom: 14%; right: 16%; width: clamp(84px, 11vw, 155px); animation-delay: -4.5s; }
+
+@keyframes flotar-foto {
+  0%, 100% {
+    transform: translateY(0) rotate(-4deg) scale(1);
+  }
+
+  50% {
+    transform: translateY(-24px) rotate(4deg) scale(1.05);
+  }
+}
+
+@keyframes brillo-corazon {
+  from { opacity: .65; transform: scale(.98); }
+  to { opacity: 1; transform: scale(1.03); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .decoracion, .foto-tarjeta__interior { animation: none; transition-duration: 1ms; }
+}
+
+/* Girasoles: pétalos, centros de semillas y tallos verdes. */
+.flower__leafs > .flower__leaf {
+  display: none;
+}
+
+.girasol-petalos {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 22vmin;
+  height: 22vmin;
+  transform: translate(-50%, -55%);
+  z-index: 2;
+}
+
+.girasol-petalo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4.3vmin;
+  height: 11vmin;
+  border-radius: 50% 50% 42% 42%;
+  background: linear-gradient(90deg, #e99a00, #ffe94a 45%, #ffc400 75%, #d98200);
+  box-shadow: inset 0 0 1.1vmin rgba(139, 83, 0, .34);
+  transform: translate(-50%, -100%) rotate(var(--angulo));
+  transform-origin: 50% 100%;
+}
+
+.flower__white-circle {
+  left: -4.2vmin;
+  top: -5.2vmin;
+  width: 8.4vmin;
+  height: 8.4vmin;
+  z-index: 4;
+  background: radial-gradient(circle at 36% 30%, #a75a13 0 4%, #6a2b09 6% 45%, #351304 76%);
+  box-shadow: 0 0 .6vmin #2b1004, inset 0 0 1vmin rgba(0, 0, 0, .6);
+}
+
+.flower__white-circle::after {
+  width: 100%;
+  height: 100%;
+  background-image: repeating-radial-gradient(circle at center, rgba(255, 202, 74, .22) 0 1px, transparent 1px 4px);
+}
+
+.flower__leafs::after {
+  width: 14vmin;
+  height: 14vmin;
+  transform: translate(-50%, -62%);
+  background-color: #ffd21f;
+  filter: blur(7vmin);
+}
+
+.flower__line {
+  background-image: linear-gradient(to right, #0b4f23, #2f9f40 48%, #8acb45 60%, #145c29);
+}
+
+.flower__line__leaf {
+  background-image: linear-gradient(to top, #0e5428, #55b947 70%, #a0db58);
+}
+
+/* Girasoles pequeños que llenan el fondo inferior de la escena. */
+.flores-fondo {
+  position: fixed;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 45vh;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Arbustos celestes que rellenan la base del jardín. */
+.arbustos-celestes {
+  position: fixed;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 31vh;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.arbusto-celeste {
+  position: absolute;
+  bottom: -2vmin;
+  left: var(--izquierda);
+  width: 15vmin;
+  height: 17vmin;
+  transform: translateX(-50%) scale(var(--escala));
+  transform-origin: bottom center;
+  animation: mecer-arbusto 4.2s ease-in-out var(--retraso) infinite alternate;
+}
+
+.arbusto-celeste__hoja {
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 1.2vmin);
+  width: 2.4vmin;
+  height: var(--alto);
+  border-radius: 100% 0 100% 0;
+  background: linear-gradient(115deg, #0b5d78, #1dd4df 55%, #87f8ef);
+  box-shadow: inset 0 0 .45vmin rgba(0, 50, 70, .5), 0 0 .45vmin rgba(51, 232, 236, .42);
+  transform: rotate(var(--angulo));
+  transform-origin: bottom center;
+}
+
+@keyframes mecer-arbusto {
+  from { transform: translateX(-50%) scale(var(--escala)) rotate(-2deg); }
+  to { transform: translateX(-50%) scale(var(--escala)) rotate(2deg); }
+}
+
+.mini-girasol {
+  position: absolute;
+  bottom: -3vmin;
+  left: var(--izquierda);
+  width: var(--tamano);
+  height: calc(var(--alto) + var(--tamano));
+  transform-origin: bottom center;
+  animation: mecer-girasol 3.8s ease-in-out var(--retraso) infinite alternate;
+}
+
+.mini-girasol__tallo {
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - .42vmin);
+  width: .84vmin;
+  height: var(--alto);
+  border-radius: 99px 99px 0 0;
+  background: linear-gradient(to right, #0d4d25, #68bb42 52%, #174e24);
+}
+
+.mini-girasol__tallo::before,
+.mini-girasol__tallo::after {
+  content: "";
+  position: absolute;
+  width: 4vmin;
+  height: 2vmin;
+  border-radius: 100% 0 100% 0;
+  background: linear-gradient(135deg, #8dd555, #1e772f);
+}
+
+.mini-girasol__tallo::before {
+  top: 42%;
+  left: .25vmin;
+  transform: rotate(28deg);
+}
+
+.mini-girasol__tallo::after {
+  top: 63%;
+  right: .25vmin;
+  transform: scaleX(-1) rotate(28deg);
+}
+
+.mini-girasol__cabeza {
+  position: absolute;
+  bottom: calc(var(--alto) - 1vmin);
+  left: 50%;
+  width: var(--tamano);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  filter: drop-shadow(0 0 .45vmin #ef4162);
+}
+
+.petalo-rosa {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 56%;
+  height: 72%;
+  border-radius: 54% 46% 42% 58% / 62% 44% 56% 38%;
+  background: linear-gradient(105deg, #79051f, #e51d4a 48%, #ff8198 76%, #b40831);
+  box-shadow: inset 0 0 .35vmin rgba(91, 0, 24, .55);
+  transform: translate(-50%, -100%) rotate(var(--angulo));
+  transform-origin: 50% 100%;
+}
+
+.petalo-rosa:nth-child(2n) {
+  height: 62%;
+  background: linear-gradient(105deg, #980729, #f54268 53%, #ff9aac 78%, #a3082d);
+}
+
+.petalo-rosa:nth-child(3n) {
+  width: 48%;
+  background: linear-gradient(105deg, #650219, #c80f3b 50%, #f45875 78%, #8e0625);
+}
+
+.mini-girasol__cabeza::before,
+.mini-girasol__cabeza::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+}
+
+.mini-girasol__cabeza::before {
+  inset: 29%;
+  background: radial-gradient(circle at 35% 30%, #ffb0bf 0 10%, #dd1c49 12% 42%, #76021e 44% 72%);
+  box-shadow: inset 0 0 .45vmin rgba(81, 0, 20, .7);
+}
+
+.mini-girasol__cabeza::after {
+  inset: 38%;
+  border: .3vmin solid #ffc0ca;
+  border-left-color: #85041f;
+  border-bottom-color: #85041f;
+  transform: rotate(35deg);
+}
+
+@keyframes mecer-girasol {
+  from { transform: rotate(-3deg); }
+  to { transform: rotate(3deg); }
+}
+
+/* Barras de sonido que rodean el ramo y responden a la canción. */
+.ritmo-musical {
+  --energia: .2;
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.icono-musical {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  color: #ffe859;
+  font-family: Georgia, serif;
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 0 5px #fffde2, 0 0 13px #ffc400, 0 0 25px #ff9700;
+  opacity: calc(.4 + var(--energia));
+  filter: brightness(calc(.7 + var(--energia)));
+  transition: font-size 70ms linear, opacity 140ms ease;
+  animation: flotar-nota var(--duracion) ease-in-out var(--retraso) infinite alternate;
+}
+
+@keyframes flotar-nota {
+  from { transform: translate(0, 0) rotate(0deg) scale(.88); }
+  to { transform: translate(var(--desplazamiento-x), var(--desplazamiento-y)) rotate(var(--giro)) scale(1.12); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icono-musical { animation: none; transition: none; }
+}
